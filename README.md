@@ -6,3 +6,9 @@ Figma:
 
 Diagram:
 https://drive.google.com/file/d/19w3nUVLruWGtQkHBn_gyPtJxJKV7htck/view?usp=sharing
+
+Dictionary for refrence:
+https://www.verbformen.com
+
+Api for refrence:
+https://en.wiktionary.org/api/rest_v1/page/definition/Vater
