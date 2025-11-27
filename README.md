@@ -12,3 +12,9 @@ https://www.verbformen.com
 
 Api for refrence:
 https://en.wiktionary.org/api/rest_v1/page/definition/Vater
+
+Android Compose:
+https://developer.android.com/develop/ui/compose/tutorial
+
+UI Component Source:
+https://m2.material.io/design/layout/understanding-layout.html#layout-anatomy
