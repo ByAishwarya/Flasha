@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -26,56 +27,54 @@ import androidx.compose.ui.unit.sp
 fun CategoryCard(
     title: String,
     description: String,
-    iconColor: Color,
     icon: ImageVector,
+    iconColor: Color,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    Card(
+    androidx.compose.material3.Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(16.dp)
+            .padding(vertical = 4.dp),
+        colors = androidx.compose.material3.CardDefaults.cardColors(
+            containerColor = Color.White
+        ),
+        elevation = androidx.compose.material3.CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        ),
+        onClick = onClick
     ) {
         Column(
             modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally,   // ⬅ ЦЕНТРИРУЕТ ВСЁ
             verticalArrangement = Arrangement.Center
         ) {
-            // Icon Box
-            Box(
+            androidx.compose.material3.Icon(
+                imageVector = icon,
+                contentDescription = title,
+                tint = iconColor,
                 modifier = Modifier
-                    .size(56.dp)
-                    .background(iconColor, shape = RoundedCornerShape(12.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = title,
-                    tint = Color.White,
-                    modifier = Modifier.size(32.dp)
-                )
-            }
-
-            Spacer(modifier = Modifier.padding(8.dp))
-
-            Text(
-                text = title,
-                color = Color.Black,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                    .padding(bottom = 8.dp)
+                    .align(Alignment.CenterHorizontally)          // ⬅ гарантирует центр
             )
 
             Text(
+                text = title,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Text(
                 text = description,
+                fontSize = 14.sp,
                 color = Color.Gray,
-                fontSize = 12.sp,
                 textAlign = TextAlign.Center,
-                lineHeight = 16.sp
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .align(Alignment.CenterHorizontally)
             )
         }
     }
