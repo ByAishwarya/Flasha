@@ -1,5 +1,6 @@
 package com.example.flasha
 
+import ChooseLevelScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,10 +16,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -120,94 +119,6 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
                 text = "Get Started",
                 fontSize = 18.sp
             )
-        }
-    }
-}
-
-@Composable
-fun ChooseLevelScreen(navController: NavController, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Choose Your Level",
-            color = Color.Black,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { navController.navigate("choose_category") }
-                .padding(vertical = 8.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Icon/Badge
-                    Box(
-                        modifier = Modifier
-                            .size(60.dp)
-                            .background(Color(0xFFFFF59D), shape = RoundedCornerShape(12.dp)),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Star,
-                                contentDescription = "Star",
-                                tint = Color(0xFFFFA000),
-                                modifier = Modifier.size(24.dp)
-                            )
-                            Text(
-                                text = "A1",
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.Black
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.width(16.dp))
-
-                    // Text Content
-                    Column {
-                        Text(
-                            text = "A1",
-                            color = Color.Black,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "Beginner - Basic phrases\nand expressions",
-                            color = Color.Gray,
-                            fontSize = 14.sp,
-                            lineHeight = 18.sp
-                        )
-                    }
-                }
-
-                // Arrow Icon
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                    contentDescription = "Navigate",
-                    tint = Color.Gray
-                )
-            }
         }
     }
 }
