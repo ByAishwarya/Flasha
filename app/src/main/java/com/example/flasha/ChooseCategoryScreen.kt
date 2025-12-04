@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -56,8 +57,11 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                     description = "Things, people, and places",
                     iconColor = Color(0xFF2196F3), // Blue
                     icon = Icons.Default.Star,
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 150.dp),
                     onClick = { /* TODO: Navigate to flashcard screen */ }
+
                 )
 
                 CategoryCard(
@@ -65,7 +69,9 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                     description = "Actions and activities",
                     iconColor = Color(0xFF9C27B0), // Purple
                     icon = Icons.Default.Star,
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 150.dp),
                     onClick = { /* TODO: Navigate to flashcard screen */ }
                 )
             }
@@ -80,7 +86,9 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                     description = "Descriptive words",
                     iconColor = Color(0xFFE91E63), // Pink
                     icon = Icons.Default.Star,
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 150.dp),
                     onClick = { /* TODO: Navigate to flashcard screen */ }
                 )
 
@@ -89,7 +97,9 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                     description = "Common expressions",
                     iconColor = Color(0xFF4CAF50), // Green
                     icon = Icons.Default.Star,
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 150.dp),
                     onClick = { /* TODO: Navigate to flashcard screen */ }
                 )
             }
