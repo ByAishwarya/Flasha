@@ -48,7 +48,7 @@ fun CategoryCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,   // ⬅ ЦЕНТРИРУЕТ ВСЁ
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             androidx.compose.material3.Icon(
@@ -57,7 +57,7 @@ fun CategoryCard(
                 tint = iconColor,
                 modifier = Modifier
                     .padding(bottom = 8.dp)
-                    .align(Alignment.CenterHorizontally)          // ⬅ гарантирует центр
+                    .align(Alignment.CenterHorizontally)
             )
 
             Text(
