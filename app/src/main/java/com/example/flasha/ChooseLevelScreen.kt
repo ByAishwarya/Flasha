@@ -20,11 +20,12 @@ fun ChooseLevelScreen(navController: NavController, modifier: Modifier = Modifie
     CERFlevel("A2", "Beginner - Basic phrases\nand expressions"),
     CERFlevel("B1", "Intermediate - Basic phrases\nand expressions"),
     CERFlevel("B2", "Intermediate - Basic phrases\nand expressions"),
+    CERFlevel("B2", "Intermediate - Basic phrases\nand expressions"),
   )
   Column(
     modifier = modifier
       .fillMaxSize()
-      .padding(16.dp),
+      .padding(30.dp),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Text(
