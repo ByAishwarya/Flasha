@@ -20,5 +20,5 @@ UI Component Source:
 https://m2.material.io/design/layout/understanding-layout.html#layout-anatomy
 
 Open Source API:
-Link: github.com/technologiestiftung/sprach-o-mat
+Link: https://github.com/technologiestiftung/sprach-o-mat
 Has CSV files with vocabulary from Goethe Institut for A1, A2, and B1 levels
