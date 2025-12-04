@@ -103,7 +103,7 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center
         )
         Text(
-            text = "A1 to B2 level content",
+            text = "A1 to C2 level content",
             color = Color.Black,
             fontSize = 16.sp,
             textAlign = TextAlign.Center
