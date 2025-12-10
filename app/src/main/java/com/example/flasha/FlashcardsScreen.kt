@@ -4,16 +4,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -39,7 +30,6 @@ data class Flashcard(
 
 @Composable
 fun FlashcardsScreen(navController: NavController, category: String) {
-    // Mock sample data (replace with real nouns/verbs/etc later)
     val flashcards = listOf(
         Flashcard("der Hund", "the dog"),
         Flashcard("die Katze", "the cat"),
@@ -49,26 +39,20 @@ fun FlashcardsScreen(navController: NavController, category: String) {
 
     var currentIndex by remember { mutableStateOf(0) }
     var flipped by remember { mutableStateOf(false) }
-
     val currentCard = flashcards[currentIndex]
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+            .padding(20.dp)
     ) {
-        // TOP BAR — Centered counter
+        // TOP BAR — Card counter and back button
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            // Back Button (left)
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
@@ -77,33 +61,33 @@ fun FlashcardsScreen(navController: NavController, category: String) {
                 )
             }
 
-            // Centered counter
-            val index = ""
             Text(
-                text = "Card ${index + 1} of ${flashcards.size}",
+                text = "Card ${currentIndex + 1} of ${flashcards.size}",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier.weight(1f),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
 
-            // Placeholder to balance layout (right side)
             Spacer(modifier = Modifier.width(48.dp))
         }
 
-        // SPACER
-        Box(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
-        // FLASHCARD (with flip animation)
-        FlashcardView(
-            frontText = currentCard.german,
-            backText = currentCard.english,
-            flipped = flipped,
-            onTap = { flipped = !flipped }
-        )
+        // CENTERED CARD
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            FlashcardView(
+                frontText = currentCard.german,
+                backText = currentCard.english,
+                flipped = flipped,
+                onTap = { flipped = !flipped }
+            )
+        }
 
-        // NAV BUTTONS
+        // NAV BUTTONS WITH LABELS
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -111,31 +95,45 @@ fun FlashcardsScreen(navController: NavController, category: String) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(
-                enabled = currentIndex > 0,
-                onClick = {
-                    flipped = false
-                    currentIndex--
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                IconButton(
+                    enabled = currentIndex > 0,
+                    onClick = {
+                        flipped = false
+                        currentIndex--
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Previous",
+                        tint = if (currentIndex > 0) Color.Black else Color.Gray
+                    )
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Previous",
-                    tint = if (currentIndex > 0) Color.Black else Color.Gray
+                Text(
+                    text = "Previous",
+                    color = if (currentIndex > 0) Color.Black else Color.Gray, // Dark color
+                    fontSize = 14.sp
                 )
             }
 
-            IconButton(
-                enabled = currentIndex < flashcards.size - 1,
-                onClick = {
-                    flipped = false
-                    currentIndex++
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                IconButton(
+                    enabled = currentIndex < flashcards.size - 1,
+                    onClick = {
+                        flipped = false
+                        currentIndex++
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = "Next",
+                        tint = if (currentIndex < flashcards.size - 1) Color.Black else Color.Gray
+                    )
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                    contentDescription = "Next",
-                    tint = if (currentIndex < flashcards.size - 1) Color.Black else Color.Gray
+                Text(
+                    text = "Next",
+                    color = if (currentIndex < flashcards.size - 1) Color.Black else Color.Gray, // Dark color
+                    fontSize = 14.sp
                 )
             }
         }
@@ -159,7 +157,7 @@ fun FlashcardView(
 
     Surface(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(0.85f)
             .height(220.dp)
             .clickable { onTap() }
             .graphicsLayer {
@@ -173,15 +171,15 @@ fun FlashcardView(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White),
+                .background(Color.Yellow),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = if (showBack) backText else frontText,
                 fontSize = 28.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
         }
     }
 }
-
