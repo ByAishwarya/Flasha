@@ -55,13 +55,14 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                 CategoryCard(
                     title = "Noun",
                     description = "Things, people, and places",
-                    iconColor = Color(0xFF2196F3), // Blue
+                    iconColor = Color(0xFF2196F3),
                     icon = Icons.Default.Star,
                     modifier = Modifier
                         .weight(1f)
                         .heightIn(min = 150.dp),
-                    onClick = { /* TODO: Navigate to flashcard screen */ }
-
+                    onClick = {
+                        navController.navigate("flashcards/Noun")
+                    }
                 )
 
                 CategoryCard(
@@ -72,7 +73,9 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                     modifier = Modifier
                         .weight(1f)
                         .heightIn(min = 150.dp),
-                    onClick = { /* TODO: Navigate to flashcard screen */ }
+                    onClick = {
+                        navController.navigate("flashcards/Verb")
+                    }
                 )
             }
 
@@ -89,7 +92,9 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                     modifier = Modifier
                         .weight(1f)
                         .heightIn(min = 150.dp),
-                    onClick = { /* TODO: Navigate to flashcard screen */ }
+                    onClick = {
+                        navController.navigate("flashcards/Adjective")
+                    }
                 )
 
                 CategoryCard(
@@ -100,7 +105,9 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                     modifier = Modifier
                         .weight(1f)
                         .heightIn(min = 150.dp),
-                    onClick = { /* TODO: Navigate to flashcard screen */ }
+                    onClick = {
+                        navController.navigate("flashcards/Phrase")
+                    }
                 )
             }
         }
