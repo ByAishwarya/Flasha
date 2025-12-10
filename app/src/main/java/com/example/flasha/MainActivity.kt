@@ -38,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -60,22 +61,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "landing") {
-        composable("landing") {
-            LandingScreen(navController = navController)
-        }
-        composable("choose_level") {
-            ChooseLevelScreen(navController = navController)
-        }
-        composable("choose_category") {
-            ChooseCategoryScreen(navController = navController)
-        }
-    }
-}
-
+// Define LandingScreen before it's called in AppNavigation
 @Composable
 fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
     Column(
@@ -124,6 +110,32 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun AppNavigation() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "landing") {
+        composable("landing") {
+            // Now this call is valid
+            LandingScreen(navController = navController)
+        }
+        composable("choose_level") {
+            ChooseLevelScreen(navController = navController)
+        }
+        composable("choose_category") {
+            ChooseCategoryScreen(navController = navController)
+        }
+        composable("flashcards/{category}") { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category") ?: ""
+            FlashcardsScreen(navController = navController, category = category)
+        }
+    }
+}
+
+// Removed the duplicate function
+@Composable
+fun FlashcardsScreen(navController: NavHostController) {
+    TODO("Not yet implemented")
+}
 
 
 @Preview(showBackground = true)
