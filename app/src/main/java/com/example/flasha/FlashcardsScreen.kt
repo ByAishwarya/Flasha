@@ -159,8 +159,8 @@ fun FlashcardView(
 
     Surface(
         modifier = Modifier
-            .fillMaxWidth(0.85f)
-            .height(220.dp)
+            .fillMaxWidth(0.95f)
+            .height(280.dp)      // Height of card
             .clickable { onTap() }
             .graphicsLayer {
                 rotationY = rotation
@@ -170,16 +170,29 @@ fun FlashcardView(
         shape = RoundedCornerShape(16.dp),
         shadowElevation = 8.dp
     ) {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Yellow),
-            contentAlignment = Alignment.Center
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
+
+            // Title
+            Text(
+                text = if (showBack) "English" else "German",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.DarkGray
+            )
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            // Words
             Text(
                 text = if (showBack) backText else frontText,
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+                fontWeight = FontWeight.SemiBold,
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
         }
