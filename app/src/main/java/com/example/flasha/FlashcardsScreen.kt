@@ -76,7 +76,9 @@ fun FlashcardsScreen(navController: NavController, category: String) {
 
         // CENTERED CARD
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             contentAlignment = Alignment.Center
         ) {
             FlashcardView(
@@ -149,7 +151,7 @@ fun FlashcardView(
 ) {
     val rotation by animateFloatAsState(
         targetValue = if (flipped) 180f else 0f,
-        animationSpec = tween(300)
+        animationSpec = tween(400)
     )
 
     val showBack = rotation > 90f
