@@ -22,22 +22,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import flashcardList
+import getFilteredFlashcards
+import FlashcardViewModel
 
-data class Flashcard(
-    val german: String,
-    val english: String
-)
 
 @Composable
-fun FlashcardsScreen(navController: NavController, category: String) {
-    val flashcards = listOf(
-        Flashcard("der Hund", "the dog"),
-        Flashcard("die Katze", "the cat"),
-        Flashcard("laufen", "to run"),
-        Flashcard("schön", "beautiful")
-    )
+fun FlashcardsScreen(
+    navController: NavController,
+    vm: FlashcardViewModel
+) {
+    val flashcards = getFilteredFlashcards(
+        flashcardList,
+        vm.level,
+        vm.category);
 
-    var currentIndex by remember { mutableStateOf(0) }
+    var currentIndex by remember { mutableIntStateOf(0) }
     var flipped by remember { mutableStateOf(false) }
     val currentCard = flashcards[currentIndex]
 

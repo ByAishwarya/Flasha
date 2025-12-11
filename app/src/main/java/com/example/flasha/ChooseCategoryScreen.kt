@@ -20,7 +20,11 @@ import androidx.navigation.NavController
 
 
 @Composable
-fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun ChooseCategoryScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    vm: FlashcardViewModel
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -61,7 +65,8 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        navController.navigate("flashcards/Noun")
+                        vm.category = "Noun"
+                        navController.navigate("flashcards")
                     }
                 )
 
@@ -74,7 +79,8 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        navController.navigate("flashcards/Verb")
+                        vm.category = "Verb"
+                        navController.navigate("flashcards")
                     }
                 )
             }
@@ -93,7 +99,8 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        navController.navigate("flashcards/Adjective")
+                        vm.category = "Adjective"
+                        navController.navigate("flashcards")
                     }
                 )
 
@@ -106,7 +113,8 @@ fun ChooseCategoryScreen(navController: NavController, modifier: Modifier = Modi
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        navController.navigate("flashcards/Phrase")
+                        vm.category = "Phrase"
+                        navController.navigate("flashcards")
                     }
                 )
             }

@@ -14,12 +14,15 @@ import androidx.navigation.NavController
 data class CERFlevel (val title: String, val description: String);
 
 @Composable
-fun ChooseLevelScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun ChooseLevelScreen(
+  navController: NavController,
+  modifier: Modifier = Modifier,
+  vm: FlashcardViewModel
+) {
   val levels = listOf<CERFlevel>(
     CERFlevel("A1", "Beginner - Basic phrases\nand expressions"),
     CERFlevel("A2", "Beginner - Basic phrases\nand expressions"),
     CERFlevel("B1", "Intermediate - Basic phrases\nand expressions"),
-    CERFlevel("B2", "Intermediate - Basic phrases\nand expressions"),
     CERFlevel("B2", "Intermediate - Basic phrases\nand expressions"),
   )
   Column(
@@ -36,7 +39,12 @@ fun ChooseLevelScreen(navController: NavController, modifier: Modifier = Modifie
       modifier = Modifier.padding(bottom = 24.dp)
     )
     for (lvl in levels) {
-      LevelCard(navController, modifier,lvl)
+      LevelCard(
+        navController,
+        modifier,
+        level= lvl,
+        vm
+      )
     }
   }
 }

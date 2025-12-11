@@ -2,6 +2,7 @@ package com.example.flasha
 
 import ChooseCategoryScreen
 import ChooseLevelScreen
+import FlashcardViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -113,66 +115,20 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val flashcardViewModel: FlashcardViewModel = viewModel()
     NavHost(navController = navController, startDestination = "landing") {
         composable("landing") {
             // Now this call is valid
             LandingScreen(navController = navController)
         }
         composable("choose_level") {
-            ChooseLevelScreen(navController = navController)
+            ChooseLevelScreen(navController = navController, vm=flashcardViewModel)
         }
         composable("choose_category") {
-            ChooseCategoryScreen(navController = navController)
+            ChooseCategoryScreen(navController = navController, vm=flashcardViewModel)
         }
-        composable("flashcards/{category}") { backStackEntry ->
-            val category = backStackEntry.arguments?.getString("category") ?: ""
-            FlashcardsScreen(navController = navController, category = category)
-        }
-    }
-}
-
-// Removed the duplicate function
-@Composable
-fun FlashcardsScreen(navController: NavHostController) {
-    TODO("Not yet implemented")
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun LandingScreenPreview() {
-    FlashaTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Color.White
-        ) {
-            LandingScreen(navController = rememberNavController())
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ChooseLevelScreenPreview() {
-    FlashaTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Color.White
-        ) {
-            ChooseLevelScreen(navController = rememberNavController())
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ChooseCategoryScreenPreview() {
-    FlashaTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Color.White
-        ) {
-            ChooseCategoryScreen(navController = rememberNavController())
+        composable("flashcards") {
+            FlashcardsScreen(navController = navController, vm=flashcardViewModel)
         }
     }
 }

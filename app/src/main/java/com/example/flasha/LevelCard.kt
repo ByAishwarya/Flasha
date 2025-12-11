@@ -32,11 +32,15 @@ fun LevelCard(
   navController: NavController,
   modifier: Modifier = Modifier,
   level: CERFlevel,
+  vm: FlashcardViewModel
 ) {
   Card(
     modifier = Modifier
       .fillMaxWidth()
-      .clickable { navController.navigate("choose_category") }
+      .clickable {
+        vm.level = level.title
+        navController.navigate("choose_category")
+      }
       .padding(vertical = 8.dp),
     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     colors = CardDefaults.cardColors(containerColor = Color.White)
