@@ -65,7 +65,7 @@ fun ChooseCategoryScreen(
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        vm.category = "Noun"
+                        vm.setCardsCategory("Noun")
                         navController.navigate("flashcards")
                     }
                 )
@@ -79,7 +79,7 @@ fun ChooseCategoryScreen(
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        vm.category = "Verb"
+                        vm.setCardsCategory("Verb")
                         navController.navigate("flashcards")
                     }
                 )
@@ -99,7 +99,7 @@ fun ChooseCategoryScreen(
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        vm.category = "Adjective"
+                        vm.setCardsCategory("Adjective")
                         navController.navigate("flashcards")
                     }
                 )
@@ -113,7 +113,7 @@ fun ChooseCategoryScreen(
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        vm.category = "Phrase"
+                        vm.setCardsCategory("Phrase")
                         navController.navigate("flashcards")
                     }
                 )

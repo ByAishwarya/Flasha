@@ -38,6 +38,11 @@ fun ChooseLevelScreen(
       fontWeight = FontWeight.Bold,
       modifier = Modifier.padding(bottom = 24.dp)
     )
+    NavigateButton(
+      text = "Go to Flashcards",
+      route = "list",
+      navController = navController
+    )
     for (lvl in levels) {
       LevelCard(
         navController,

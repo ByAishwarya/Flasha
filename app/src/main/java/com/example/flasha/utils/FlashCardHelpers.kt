@@ -1,5 +1,5 @@
 fun getFilteredFlashcards(
-    flashcards: List<FlashcardDT>,
+    flashcards: List<FlashcardDT> = flashcardList,
     level: String,
     category: String
 ): List<FlashcardDT> {

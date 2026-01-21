@@ -38,7 +38,7 @@ fun LevelCard(
     modifier = Modifier
       .fillMaxWidth()
       .clickable {
-        vm.level = level.title
+        vm.setCardsLevel(level.title)
         navController.navigate("choose_category")
       }
       .padding(vertical = 8.dp),

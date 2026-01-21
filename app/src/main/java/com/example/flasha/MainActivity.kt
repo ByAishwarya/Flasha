@@ -1,7 +1,9 @@
 package com.example.flasha
 
+import AddFlashcardScreen
 import ChooseCategoryScreen
 import ChooseLevelScreen
+import FlashcardListScreen
 import FlashcardViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -129,6 +131,18 @@ fun AppNavigation() {
         }
         composable("flashcards") {
             FlashcardsScreen(navController = navController, vm=flashcardViewModel)
+        }
+        composable("list") {
+            FlashcardListScreen(
+                navController = navController,
+                vm=flashcardViewModel
+            )
+        }
+
+        composable("add") {
+            AddFlashcardScreen(
+                onBackClick = { navController.popBackStack() }
+            )
         }
     }
 }
