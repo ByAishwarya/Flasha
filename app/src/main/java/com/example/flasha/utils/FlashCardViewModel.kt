@@ -1,35 +1,58 @@
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+package com.example.flasha.utils
+
 import androidx.lifecycle.ViewModel
+import com.example.flasha.data.FlashcardDT
+import com.example.flasha.interfaces.FlashcardRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
-class FlashcardViewModel : ViewModel() {
+class FlashcardViewModel(private val repository: FlashcardRepository) : ViewModel() {
 
-    var category by mutableStateOf("Verb")
-        private set
+    private val _uiState = MutableStateFlow(FlashcardUiState())
+    val uiState: StateFlow<FlashcardUiState> = _uiState.asStateFlow()
 
-    var level by mutableStateOf("A1")
-        private set
-
-    var flashCards by mutableStateOf<List<FlashcardDT>>(flashcardList)
-        private set
-
-    // ✅ Remove card by german word
-    fun removeCard(germanWord: String) {
-        flashCards = flashCards.filterNot { it.german == germanWord }
+    init {
+        loadInitialData()
     }
 
-    // ✅ Add a new card
-    fun addCard(card: FlashcardDT) {
-        flashCards = flashCards + card
+    private fun loadInitialData() {
+        val levels = repository.getLevels()
+        _uiState.update {
+            it.copy(levels = levels, selectedLevel = levels.firstOrNull() ?: "")
+        }
+        updateCategories()
+        updateFlashcards()
     }
 
-    // (Optional) Update filters
-    fun setCardsCategory(newCategory: String) {
-        category = newCategory
+    fun selectLevel(level: String) {
+        _uiState.update { it.copy(selectedLevel = level) }
+        updateCategories()
     }
 
-    fun setCardsLevel(newLevel: String) {
-        level = newLevel
+    fun selectCategory(category: String) {
+        _uiState.update { it.copy(selectedCategory = category) }
+        updateFlashcards()
+    }
+
+    private fun updateCategories() {
+        val categories = repository.getCategoriesForLevel(uiState.value.selectedLevel)
+        _uiState.update {
+            it.copy(categories = categories, selectedCategory = categories.firstOrNull() ?: "")
+        }
+    }
+
+    private fun updateFlashcards() {
+        val flashcards = repository.getFlashcards(uiState.value.selectedLevel, uiState.value.selectedCategory)
+        _uiState.update { it.copy(flashcards = flashcards) }
     }
 }
+
+data class FlashcardUiState(
+    val levels: List<String> = emptyList(),
+    val categories: List<String> = emptyList(),
+    val flashcards: List<FlashcardDT> = emptyList(),
+    val selectedLevel: String = "",
+    val selectedCategory: String = ""
+)
