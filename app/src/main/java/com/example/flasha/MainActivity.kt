@@ -104,56 +104,35 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
         }
 
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.weight(1f))
-
-            // Logo
-            Box(
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(Color.White.copy(alpha = 0.1f)),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Translate,
-                    contentDescription = "Flasha Logo",
-                    tint = Color.White,
-                    modifier = Modifier.size(60.dp)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
             // Main Title
             Text(
                 text = "Flasha",
                 color = Color.White,
-                fontSize = 48.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.graphicsLayer { shadowElevation = 8f }
+                fontSize = 52.sp,
+                fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Subtitle
             Text(
                 text = "Master German vocabulary with\ninteractive flashcards",
                 color = Color.White.copy(alpha = 0.9f),
                 fontSize = 16.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 32.dp)
+                textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(48.dp))
 
             // Feature List
             Column(
-                modifier = Modifier.padding(horizontal = 32.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
@@ -183,16 +162,15 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(60.dp))
 
             // Get Started Button
             Button(
                 onClick = { navController.navigate("choose_level") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 32.dp)
                     .height(56.dp),
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(28.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
                     contentColor = GermanRed
@@ -201,14 +179,12 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
                 Text(
                     text = "Get Started",
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.SemiBold
                 )
             }
-            Spacer(modifier = Modifier.height(48.dp))
         }
     }
 }
-
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
