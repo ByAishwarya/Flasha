@@ -19,11 +19,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.flasha.ui.theme.GermanBlack
+import com.example.flasha.ui.theme.GermanGold
+import com.example.flasha.ui.theme.GermanRed
 import com.example.flasha.utils.FlashcardViewModel
 
 @Composable
@@ -35,7 +39,11 @@ fun ChooseCategoryScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(GermanBlack, GermanRed, GermanGold)
+                )
+            )
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -50,7 +58,7 @@ fun ChooseCategoryScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = Color.Black
+                    tint = Color.White
                 )
             }
 
@@ -58,7 +66,7 @@ fun ChooseCategoryScreen(
 
             Text(
                 text = "Choose a Category",
-                color = Color.Black,
+                color = Color.White,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -66,7 +74,7 @@ fun ChooseCategoryScreen(
 
         Text(
             text = "What would you like to practice?",
-            color = Color.Gray,
+            color = Color.White.copy(alpha = 0.9f),
             fontSize = 16.sp,
             modifier = Modifier.padding(bottom = 24.dp)
         )
