@@ -38,9 +38,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 // LinkedIn profile URLs
-private const val LINKEDIN_AISHWARYA = "https://www.linkedin.com/in/aishwarya-sharma"
+private const val LINKEDIN_AISHWARYA = "https://www.linkedin.com/in/byaishwarya/"
 private const val LINKEDIN_MAHDI = "https://www.linkedin.com/in/mahdi-aghaali"
-private const val LINKEDIN_AYA = "https://www.linkedin.com/in/ayala-omarova"
+private const val LINKEDIN_AYA = "https://www.linkedin.com/in/ayalaomarova22/"
 
 // Team member data class
 data class TeamMember(
