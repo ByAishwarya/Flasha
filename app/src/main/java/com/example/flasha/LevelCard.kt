@@ -1,3 +1,5 @@
+package com.example.flasha
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -5,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.flasha.utils.FlashcardViewModel
 
 @Composable
 fun LevelCard(
@@ -38,7 +40,7 @@ fun LevelCard(
     modifier = Modifier
       .fillMaxWidth()
       .clickable {
-        vm.setCardsLevel(level.title)
+        vm.selectLevel(level.title)
         navController.navigate("choose_category")
       }
       .padding(vertical = 8.dp),
@@ -55,7 +57,6 @@ fun LevelCard(
       Row(
         verticalAlignment = Alignment.CenterVertically
       ) {
-        // Icon/Badge
         Box(
           modifier = Modifier
             .size(60.dp)
@@ -85,7 +86,6 @@ fun LevelCard(
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        // Text Content
         Column {
           Text(
             text = level.title,
@@ -102,7 +102,6 @@ fun LevelCard(
         }
       }
 
-      // Arrow Icon
       Icon(
         imageVector = Icons.AutoMirrored.Filled.ArrowForward,
         contentDescription = "Navigate",

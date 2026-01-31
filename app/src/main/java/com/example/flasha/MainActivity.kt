@@ -1,10 +1,5 @@
 package com.example.flasha
 
-import AddFlashcardScreen
-import ChooseCategoryScreen
-import ChooseLevelScreen
-import FlashcardListScreen
-import FlashcardViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -46,10 +41,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.flasha.data.FlashcardRepositoryImpl
 import com.example.flasha.ui.theme.FlashaTheme
 import com.example.flasha.ui.theme.GermanBlack
 import com.example.flasha.ui.theme.GermanGold
 import com.example.flasha.ui.theme.GermanRed
+import com.example.flasha.utils.FlashcardViewModel
+import com.example.flasha.utils.FlashcardViewModelFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +83,6 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            // Logo
             Box(
                 modifier = Modifier
                     .size(100.dp)
@@ -103,7 +100,6 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Main Title
             Text(
                 text = "Flasha",
                 color = Color.White,
@@ -114,7 +110,6 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Subtitle
             Text(
                 text = "Master German vocabulary with\ninteractive flashcards",
                 color = Color.White.copy(alpha = 0.9f),
@@ -125,8 +120,10 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Feature List
-            Column(modifier = Modifier.padding(horizontal = 32.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Column(
+                modifier = Modifier.padding(horizontal = 32.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.AutoMirrored.Filled.LibraryBooks, contentDescription = null, tint = Color.White.copy(alpha = 0.9f))
                     Spacer(modifier = Modifier.size(16.dp))
@@ -141,7 +138,6 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Get Started Button
             Button(
                 onClick = { navController.navigate("choose_level") },
                 modifier = Modifier
@@ -168,7 +164,12 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-    val flashcardViewModel: FlashcardViewModel = viewModel()
+
+    // Create repository and ViewModel with factory
+    val repository = FlashcardRepositoryImpl()
+    val factory = FlashcardViewModelFactory(repository)
+    val flashcardViewModel: FlashcardViewModel = viewModel(factory = factory)
+
     NavHost(navController = navController, startDestination = "landing") {
         composable("landing") {
             LandingScreen(navController = navController)
@@ -183,16 +184,10 @@ fun AppNavigation() {
             FlashcardsScreen(navController = navController, vm = flashcardViewModel)
         }
         composable("list") {
-            FlashcardListScreen(
-                navController = navController,
-                vm = flashcardViewModel
-            )
+            FlashcardListScreen(navController = navController, vm = flashcardViewModel)
         }
-
         composable("add") {
-            AddFlashcardScreen(
-                onBackClick = { navController.popBackStack() }
-            )
+            AddFlashcardScreen(onBackClick = { navController.popBackStack() })
         }
     }
 }

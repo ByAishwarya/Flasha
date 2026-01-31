@@ -1,3 +1,5 @@
+package com.example.flasha
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,8 +12,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.flasha.utils.FlashcardViewModel
 
-data class CERFlevel (val title: String, val description: String);
+data class CERFlevel(val title: String, val description: String)
 
 @Composable
 fun ChooseLevelScreen(
@@ -19,12 +22,13 @@ fun ChooseLevelScreen(
   modifier: Modifier = Modifier,
   vm: FlashcardViewModel
 ) {
-  val levels = listOf<CERFlevel>(
+  val levels = listOf(
     CERFlevel("A1", "Beginner - Basic phrases\nand expressions"),
-    CERFlevel("A2", "Beginner - Basic phrases\nand expressions"),
-    CERFlevel("B1", "Intermediate - Basic phrases\nand expressions"),
-    CERFlevel("B2", "Intermediate - Basic phrases\nand expressions"),
+    CERFlevel("A2", "Elementary - Simple communication"),
+    CERFlevel("B1", "Intermediate - Independent use"),
+    CERFlevel("B2", "Upper Intermediate - Complex texts"),
   )
+
   Column(
     modifier = modifier
       .fillMaxSize()
@@ -38,17 +42,19 @@ fun ChooseLevelScreen(
       fontWeight = FontWeight.Bold,
       modifier = Modifier.padding(bottom = 24.dp)
     )
+
     NavigateButton(
       text = "Go to Flashcards",
       route = "list",
       navController = navController
     )
+
     for (lvl in levels) {
       LevelCard(
-        navController,
-        modifier,
-        level= lvl,
-        vm
+        navController = navController,
+        modifier = modifier,
+        level = lvl,
+        vm = vm
       )
     }
   }

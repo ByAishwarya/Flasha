@@ -1,3 +1,5 @@
+package com.example.flasha
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,8 +14,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.flasha.utils.FlashcardViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,8 +27,9 @@ fun FlashcardListScreen(
     modifier: Modifier = Modifier,
     vm: FlashcardViewModel
 ) {
+    val uiState by vm.uiState.collectAsState()
+    val filteredCards = uiState.flashcards
 
-    val filteredCards = vm.flashCards;
     Scaffold(
         topBar = {
             TopAppBar(
@@ -49,7 +55,7 @@ fun FlashcardListScreen(
             items(filteredCards) { card ->
                 FlashcardRow(
                     flashcard = card,
-                    onRemove = { vm.removeCard(card.german) }
+                    onRemove = { /* TODO: Add remove functionality to ViewModel if needed */ }
                 )
             }
         }

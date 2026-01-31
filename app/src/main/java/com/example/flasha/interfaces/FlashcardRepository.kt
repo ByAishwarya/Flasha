@@ -1,10 +1,10 @@
 package com.example.flasha.interfaces
 
-import com.example.flasha.Flashcard // Assuming Flashcard data class exists
+import com.example.flasha.data.FlashcardDT
 
 /**
  * Interface (contract) for data operations related to flashcards.
- * This decouples the ViewModel from the underlying data source (e.g., in-memory list, database, or network).
+ * This decouples the ViewModel from the underlying data source.
  */
 interface FlashcardRepository {
     /**
@@ -23,5 +23,5 @@ interface FlashcardRepository {
      * @param level The proficiency level.
      * @param category The vocabulary category.
      */
-    fun getFlashcards(level: String, category: String): List<Flashcard>
+    fun getFlashcards(level: String, category: String): List<FlashcardDT>
 }

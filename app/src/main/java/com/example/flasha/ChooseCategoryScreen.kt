@@ -1,3 +1,5 @@
+package com.example.flasha
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-
+import com.example.flasha.utils.FlashcardViewModel
 
 @Composable
 fun ChooseCategoryScreen(
@@ -47,17 +49,15 @@ fun ChooseCategoryScreen(
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
-        // Grid of category cards
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // First Row
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 CategoryCard(
-                    title = "Noun",
+                    title = "Nouns",
                     description = "Things, people, and places",
                     iconColor = Color(0xFF2196F3),
                     icon = Icons.Default.Star,
@@ -65,55 +65,54 @@ fun ChooseCategoryScreen(
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        vm.setCardsCategory("Noun")
+                        vm.selectCategory("Nouns")
                         navController.navigate("flashcards")
                     }
                 )
 
                 CategoryCard(
-                    title = "Verb",
+                    title = "Verbs",
                     description = "Actions and activities",
-                    iconColor = Color(0xFF9C27B0), // Purple
+                    iconColor = Color(0xFF9C27B0),
                     icon = Icons.Default.Star,
                     modifier = Modifier
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        vm.setCardsCategory("Verb")
+                        vm.selectCategory("Verbs")
                         navController.navigate("flashcards")
                     }
                 )
             }
 
-            // Second Row
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 CategoryCard(
-                    title = "Adjective",
+                    title = "Adjectives",
                     description = "Descriptive words",
-                    iconColor = Color(0xFFE91E63), // Pink
+                    iconColor = Color(0xFFE91E63),
                     icon = Icons.Default.Star,
                     modifier = Modifier
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        vm.setCardsCategory("Adjective")
+                        vm.selectCategory("Adjectives")
                         navController.navigate("flashcards")
                     }
                 )
 
                 CategoryCard(
-                    title = "Phrase",
+                    title = "Phrases",
                     description = "Common expressions",
-                    iconColor = Color(0xFF4CAF50), // Green
+                    iconColor = Color(0xFF4CAF50),
                     icon = Icons.Default.Star,
                     modifier = Modifier
                         .weight(1f)
                         .heightIn(min = 150.dp),
                     onClick = {
-                        vm.setCardsCategory("Phrase")
+                        vm.selectCategory("Phrases")
                         navController.navigate("flashcards")
                     }
                 )
