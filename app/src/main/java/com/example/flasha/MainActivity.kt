@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,13 +16,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.automirrored.filled.LibraryBooks
 import androidx.compose.material.icons.filled.Translate
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -76,6 +80,29 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
                 )
             )
     ) {
+        // Help icon in top right corner
+        IconButton(
+            onClick = { navController.navigate("contact_support") },
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(top = 40.dp, end = 16.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(CircleShape)
+                    .border(1.dp, Color.White.copy(alpha = 0.5f), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.Help,
+                    contentDescription = "Contact Support",
+                    tint = Color.White.copy(alpha = 0.8f),
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -83,6 +110,7 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
+            // Logo
             Box(
                 modifier = Modifier
                     .size(100.dp)
@@ -100,6 +128,7 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // Main Title
             Text(
                 text = "Flasha",
                 color = Color.White,
@@ -110,6 +139,7 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
+            // Subtitle
             Text(
                 text = "Master German vocabulary with\ninteractive flashcards",
                 color = Color.White.copy(alpha = 0.9f),
@@ -120,24 +150,42 @@ fun LandingScreen(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
+            // Feature List
             Column(
                 modifier = Modifier.padding(horizontal = 32.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.AutoMirrored.Filled.LibraryBooks, contentDescription = null, tint = Color.White.copy(alpha = 0.9f))
+                    Icon(
+                        Icons.AutoMirrored.Filled.LibraryBooks,
+                        contentDescription = null,
+                        tint = Color.White.copy(alpha = 0.9f)
+                    )
                     Spacer(modifier = Modifier.size(16.dp))
-                    Text("Learn at your own pace", color = Color.White.copy(alpha = 0.9f), fontSize = 16.sp)
+                    Text(
+                        "Learn at your own pace",
+                        color = Color.White.copy(alpha = 0.9f),
+                        fontSize = 16.sp
+                    )
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Translate, contentDescription = null, tint = Color.White.copy(alpha = 0.9f))
+                    Icon(
+                        Icons.Default.Translate,
+                        contentDescription = null,
+                        tint = Color.White.copy(alpha = 0.9f)
+                    )
                     Spacer(modifier = Modifier.size(16.dp))
-                    Text("A1 to B2 level content", color = Color.White.copy(alpha = 0.9f), fontSize = 16.sp)
+                    Text(
+                        "A1 to B2 level content",
+                        color = Color.White.copy(alpha = 0.9f),
+                        fontSize = 16.sp
+                    )
                 }
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
+            // Get Started Button
             Button(
                 onClick = { navController.navigate("choose_level") },
                 modifier = Modifier
@@ -188,6 +236,10 @@ fun AppNavigation() {
         }
         composable("add") {
             AddFlashcardScreen(onBackClick = { navController.popBackStack() })
+        }
+        // New route for Contact Support
+        composable("contact_support") {
+            ContactSupportScreen(navController = navController)
         }
     }
 }
