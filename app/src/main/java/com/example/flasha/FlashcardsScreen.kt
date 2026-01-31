@@ -13,13 +13,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +35,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +45,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.flasha.utils.FlashcardViewModel
+
+// Gradient colors from Figma
+val GermanGradientStart = Color(0xFF3B82F6)  // Blue
+val GermanGradientEnd = Color(0xFF9333EA)    // Purple
+
+val EnglishGradientStart = Color(0xFF9333EA) // Purple
+val EnglishGradientEnd = Color(0xFFEC4899)   // Pink
 
 @Composable
 fun FlashcardsScreen(
@@ -128,56 +141,86 @@ fun FlashcardsScreen(
             )
         }
 
-        // NAV BUTTONS WITH LABELS
+        // Progress dots
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 24.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .padding(vertical = 16.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                IconButton(
-                    enabled = currentIndex > 0,
-                    onClick = {
-                        flipped = false
-                        currentIndex--
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Previous",
-                        tint = if (currentIndex > 0) Color.Black else Color.Gray
-                    )
-                }
-                Text(
-                    text = "Previous",
-                    color = if (currentIndex > 0) Color.Black else Color.Gray,
-                    fontSize = 14.sp
-                )
-            }
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                IconButton(
-                    enabled = currentIndex < flashcards.size - 1,
-                    onClick = {
-                        flipped = false
-                        currentIndex++
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                        contentDescription = "Next",
-                        tint = if (currentIndex < flashcards.size - 1) Color.Black else Color.Gray
-                    )
-                }
-                Text(
-                    text = "Next",
-                    color = if (currentIndex < flashcards.size - 1) Color.Black else Color.Gray,
-                    fontSize = 14.sp
+            for (i in flashcards.indices) {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 4.dp)
+                        .size(width = if (i == currentIndex) 24.dp else 8.dp, height = 8.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(
+                            if (i == currentIndex) Color(0xFF7C3AED) else Color.LightGray
+                        )
                 )
             }
         }
+
+        // NAV BUTTONS
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            // Previous Button
+            OutlinedButton(
+                onClick = {
+                    flipped = false
+                    currentIndex--
+                },
+                enabled = currentIndex > 0,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(56.dp),
+                shape = RoundedCornerShape(28.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Previous",
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Previous",
+                    fontSize = 16.sp
+                )
+            }
+
+            // Next Button
+            Button(
+                onClick = {
+                    flipped = false
+                    currentIndex++
+                },
+                enabled = currentIndex < flashcards.size - 1,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(56.dp),
+                shape = RoundedCornerShape(28.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Black
+                )
+            ) {
+                Text(
+                    text = "Next",
+                    fontSize = 16.sp
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                    contentDescription = "Next",
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
@@ -197,41 +240,74 @@ fun FlashcardView(
     val showBack = rotation > 90f
     val scaleX = if (showBack) -1f else 1f
 
+    // Choose gradient based on which side is showing
+    val gradient = if (showBack) {
+        // English side - Purple to Pink
+        Brush.linearGradient(
+            colors = listOf(EnglishGradientStart, EnglishGradientEnd)
+        )
+    } else {
+        // German side - Blue to Purple
+        Brush.linearGradient(
+            colors = listOf(GermanGradientStart, GermanGradientEnd)
+        )
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth(0.95f)
-            .height(280.dp)
+            .height(320.dp)
             .clickable { onTap() }
             .graphicsLayer {
                 rotationY = rotation
                 this.scaleX = scaleX
                 cameraDistance = 12 * density
             },
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(24.dp),
         shadowElevation = 8.dp
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Yellow),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .background(gradient),
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = if (showBack) "English" else "German",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.DarkGray
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                // Language label - 12sp, normal weight, 70% opacity
+                Text(
+                    text = if (showBack) "ENGLISH" else "GERMAN",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.White.copy(alpha = 0.7f),
+                    letterSpacing = 2.sp
+                )
 
-            Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = if (showBack) backText else frontText,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.Center
-            )
+                // Word - 30sp, normal weight, with proper line height
+                Text(
+                    text = if (showBack) backText else frontText,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.White,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 40.sp,  // Added line height to prevent touching
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Tap to flip hint - 12sp, normal weight, 70% opacity
+                Text(
+                    text = "Tap to flip",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.White.copy(alpha = 0.7f)
+                )
+            }
         }
     }
 }
